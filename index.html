@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notebook: Ricitos de Oro</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Garamond', 'Georgia', serif; 
+      background-color: #fefefe;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .portada {
+      width: 380px;
+      height: 550px;
+      background: repeating-linear-gradient(
+        0deg,
+        #f5d0dc,
+        #f5d0dc 30px,
+        #ffffff 30px,
+        #ffffff 60px
+      );
+      border: 10px solid #aeefff;
+      border-left: 50px solid #aeefff;
+      border-radius: 20px;
+      position: relative;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .portada:hover {
+      transform: scale(1.02);
+    }
+
+    .titulo {
+      font-size: 2.2em;
+      color: #7b2c45;
+      font-weight: bold;
+      text-align: center;
+      letter-spacing: 1px;
+      margin-top: 50px;
+    }
+
+    .titulo span {
+      display: inline-block;
+      background-color: #ffe4f0;
+      border-radius: 8px;
+      padding: 2px 8px;
+      margin: 2px;
+    }
+
+    .etiqueta {
+      width: 85%;
+      margin: 40px auto;
+      border: 2px solid #ff80aa;
+      border-radius: 10px;
+      background-color: #fff;
+      padding: 15px;
+      font-size: 1.1em;
+      color: #ff66aa;
+      text-align: center;
+      font-style: italic;
+    }
+
+    .decoracion {
+      position: absolute;
+      font-size: 2em;
+      opacity: 0.8;
+    }
+
+    .inferior {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.9em;
+      color: #ff66aa;
+      width: 100%;
+      text-align: center;
+    }
+
+    #paginaInterior {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(255, 255, 255, 0.98);
+      z-index: 10;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cuaderno-abierto {
+      display: flex;
+      width: 850px;
+      height: 600px;
+      box-shadow: 0px 20px 40px rgba(0,0,0,0.2);
+      border-radius: 10px;
+      overflow: hidden;
+      background: white;
+    }
+
+    .hoja {
+      width: 50%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        to bottom,
+        #fff,
+        #fff 27px,
+        #eef9ff 27px,
+        #eef9ff 28px
+      );
+      padding: 40px;
+      position: relative;
+      overflow-y: auto;
+    }
+
+    .hoja-izquierda {
+      border-right: 1px solid #ddd;
+      border-left: 15px solid #aeefff;
+    }
+
+    .hoja-derecha {
+      border-right: 15px solid #aeefff;
+    }
+
+    h2 {
+      font-family: 'Georgia', serif;
+      color: #7b2c45;
+      font-size: 1.6em;
+      margin-bottom: 25px;
+      border-bottom: 1px solid #ffb6d9;
+      padding-bottom: 5px;
+      text-align: center;
+    }
+
+    p {
+      margin-bottom: 15px;
+      line-height: 1.6;
+      color: #444;
+      font-size: 1.1em;
+    }
+
+    .poema {
+      font-style: italic;
+      color: #333;
+      white-space: pre-line;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .resaltado {
+      color: #ff69b4;
+      font-weight: bold;
+    }
+
+    .cerrar {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: 1px solid #ffb6d9;
+      padding: 5px 15px;
+      cursor: pointer;
+      border-radius: 20px;
+      color: #7b2c45;
+    }
+
+    .firma {
+      margin-top: 30px;
+      text-align: right;
+      font-weight: bold;
+      color: #7b2c45;
+    }
+
+    @media (max-width: 850px) {
+      .cuaderno-abierto {
+        flex-direction: column;
+        width: 90%;
+        height: 90vh;
+      }
+      .hoja { width: 100%; height: 50%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="portada" id="portada" onclick="abrirCuaderno()">
+    <div class="titulo">
+      <span>R</span><span>I</span><span>C</span><span>I</span><span>T</span><span>O</span><span>S</span> 
+      <br>
+      <span>D</span><span>E</span> <span>O</span><span>R</span><span>O</span>
+    </div>
+
+    <div class="etiqueta">Un detalle que viajó desde lejos para ti...</div>
+
+    <div class="decoracion" style="top: 30px; left: 20px;">☁️</div>
+    <div class="decoracion" style="bottom: 40px; right: 30px;">🌎</div>
+
+    <div class="inferior">De: Jesus</div>
+  </div>
+
+  <div id="paginaInterior">
+    <button class="cerrar" onclick="cerrarCuaderno()">Cerrar ✕</button>
+
+    <div class="cuaderno-abierto">
+      <div class="hoja hoja-izquierda">
+        <h2>✧ Un destello a distancia ✧</h2>
+        <div class="poema">
+          "Aunque nos separen los kilómetros,
+          tus ojitos cruzaron la distancia hoy;
+          brillan con la luz de una galaxia,
+          como la <span class="resaltado">nebulosa del corazón</span>.
+
+          Es un brillo que no se apaga,
+          profundo y difícil de olvidar,
+          un universo que se asoma
+          cada vez que te alcanzo a mirar."
+        </div>
+        <p style="text-align: center;">Y tu cabello...</p>
+        <div class="poema" style="font-size: 1.05em;">
+          "Ondas que parecen hilos de sol,
+          mi pequeña <span class="resaltado">Ricitos de Oro</span>,
+          qué increíble detalle es poderte admirar."
+        </div>
+      </div>
+
+      <div class="hoja hoja-derecha">
+        <h2>✧ Por el gusto de coincidir ✧</h2>
+        <p>Apenas hoy tuve el placer de conocerte a través de la distancia, y no quería dejar pasar el día sin decirte lo linda que me pareces.</p>
+        
+        <p>A pesar de estar lejos, tu luz se siente muy real. Eres una chica realmente bonita y tienes una energía que me ha encantado desde el primer momento.</p>
+        
+        <p>Ese cabello tan único y el brillo tan especial de tus ojos me han dejado sorprendido. Tienes una magia propia que cruza cualquier frontera.</p>
+
+        <p class="resaltado" style="text-align: center; margin-top: 20px;">
+          Me alegra mucho haber coincidido contigo hoy.
+        </p>
+        
+        <div class="firma">Con mucho cariño,<br>Jesus</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function abrirCuaderno() {
+      document.getElementById('portada').style.display = 'none';
+      document.getElementById('paginaInterior').style.display = 'flex';
+    }
+
+    function cerrarCuaderno() {
+      document.getElementById('paginaInterior').style.display = 'none';
+      document.getElementById('portada').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
